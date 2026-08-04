@@ -1,117 +1,79 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ArrowRight, Mail } from "lucide-react";
-import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { metrics, site } from "@/data/content";
+import { Button, Container } from "@/components/ui";
 import { IconGithub, IconLinkedin } from "@/components/icons";
-import { metrics, site, testimonials } from "@/data/content";
-import {
-  Container,
-  GhostButton,
-  MetricChip,
-  PrimaryButton,
-} from "@/components/ui";
-
-const featured = testimonials[0];
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-28 pb-12 lg:pt-36 lg:pb-16">
-      <Container>
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-8 lg:items-end">
-          <motion.div
-            className="lg:col-span-8"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <p className="text-label-caps text-secondary mb-6 animate-fade-up">
-              Architect of Precision
-            </p>
-            <h1 className="text-display text-on-surface mb-6">
-              Hi, I&apos;m{" "}
-              <span className="gradient-text">{site.name}</span>
-            </h1>
-            <p className="text-lg leading-relaxed text-on-surface-variant max-w-2xl mb-8">
-              {site.title}. {site.tagline}
-            </p>
-            <div className="flex flex-wrap gap-4 mb-10">
-              <PrimaryButton href="#projects">View my work</PrimaryButton>
-              <GhostButton href={`mailto:${site.email}`} external>
-                <Mail size={16} strokeWidth={2} />
-                Email me
-              </GhostButton>
-              <GhostButton href="#recommendations">
-                See recommendations
-                <ArrowRight size={16} strokeWidth={2} />
-              </GhostButton>
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href={site.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-on-surface-variant hover:text-secondary flex items-center gap-2 text-sm transition-colors"
-              >
-                <IconGithub />
-                GitHub
-              </a>
-              <a
-                href={site.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-on-surface-variant hover:text-secondary flex items-center gap-2 text-sm transition-colors"
-              >
-                <IconLinkedin />
-                LinkedIn
-              </a>
-            </div>
-          </motion.div>
+    <section className="relative min-h-[100svh] flex flex-col justify-end pb-16 pt-28 md:pb-24 md:pt-36">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 50% at 80% 0%, rgba(62,207,207,0.08), transparent 55%), radial-gradient(ellipse 50% 40% at 10% 80%, rgba(62,207,207,0.04), transparent 50%)",
+        }}
+        aria-hidden
+      />
 
-          <motion.div
-            className="lg:col-span-4 flex flex-col gap-3"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {metrics.map((m, i) => (
-              <motion.div
-                key={m.label}
-                initial={{ opacity: 0, x: 16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 + i * 0.08 }}
-              >
-                <MetricChip value={m.value} label={m.label} />
-              </motion.div>
-            ))}
-          </motion.div>
+      <Container>
+        <p className="mono-label rise mb-6">
+          Full-stack · Remote · Available
+        </p>
+
+        <h1 className="display rise rise-delay-1 text-fg mb-6 max-w-4xl">
+          {site.name}
+          <span className="cursor-blink" aria-hidden />
+        </h1>
+
+        <p className="rise rise-delay-2 max-w-xl text-lg leading-relaxed text-fg-muted md:text-xl">
+          {site.tagline}
+        </p>
+
+        <div className="rise rise-delay-3 mt-10 flex flex-wrap items-center gap-3">
+          <Button href="#work">Selected work</Button>
+          <Button href="#recommendations" variant="line">
+            Recommendations
+          </Button>
+          <div className="ml-1 flex items-center gap-4 pl-1">
+            <a
+              href={site.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-fg-muted transition-colors hover:text-accent"
+              aria-label="GitHub"
+            >
+              <IconGithub width={18} height={18} />
+            </a>
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-fg-muted transition-colors hover:text-accent"
+              aria-label="LinkedIn"
+            >
+              <IconLinkedin width={18} height={18} />
+            </a>
+          </div>
         </div>
 
-        <motion.div
-          className="mt-10 glass glass-interactive rounded-lg p-5 lg:p-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.55 }}
-        >
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="min-w-0">
-              <p className="text-label-caps text-gold mb-2">Recommended on LinkedIn</p>
-              <p className="text-on-surface-variant text-sm lg:text-base line-clamp-2 leading-relaxed">
-                &ldquo;{featured.quote.slice(0, 160)}…&rdquo;
-              </p>
-              <p className="text-sm text-on-surface mt-2 font-medium">
-                — {featured.author}, {featured.role}
-              </p>
+        <dl className="rise rise-delay-3 mt-16 grid grid-cols-1 gap-6 border-t border-line pt-8 sm:grid-cols-3">
+          {metrics.map((m) => (
+            <div key={m.label}>
+              <dt className="mono-label mb-1">{m.label}</dt>
+              <dd className="font-mono text-2xl font-medium tracking-tight text-fg md:text-3xl">
+                {m.value}
+              </dd>
             </div>
-            <Link
-              href="#recommendations"
-              className="btn-primary shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm"
-            >
-              <IconLinkedin width={16} height={16} />
-              All recommendations
-            </Link>
-          </div>
-        </motion.div>
+          ))}
+        </dl>
+
+        <a
+          href="#recommendations"
+          className="mt-10 inline-flex items-center gap-1.5 text-sm text-fg-muted transition-colors hover:text-accent md:hidden"
+        >
+          Jump to recommendations
+          <ArrowUpRight size={14} strokeWidth={1.75} />
+        </a>
       </Container>
     </section>
   );

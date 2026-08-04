@@ -1,90 +1,68 @@
-import { ExternalLink } from "lucide-react";
-import { IconGithub } from "@/components/icons";
+import { ArrowUpRight } from "lucide-react";
 import { projects, site } from "@/data/content";
-import {
-  Container,
-  GhostButton,
-  GlassCard,
-  PrimaryButton,
-  SectionLabel,
-  SectionTitle,
-  Tag,
-} from "@/components/ui";
+import { Container, SectionHead } from "@/components/ui";
 
 export function Projects() {
   return (
-    <section id="projects" className="py-[var(--section-gap)]">
+    <section id="work" className="py-[var(--section-gap)]">
       <Container>
-        <div className="mb-12 max-w-2xl">
-          <SectionLabel>Projects</SectionLabel>
-          <SectionTitle>Featured work</SectionTitle>
-          <p className="mt-4 text-on-surface-variant leading-relaxed">
-            Full-stack applications that demonstrate architecture, delivery, and
-            real-world problem solving.
-          </p>
-        </div>
+        <SectionHead
+          index="05"
+          label="Selected work"
+          title="Things I've built"
+          description="Product work across scaffolding tools, agencies, fundraising, and marketplaces."
+        />
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          {projects.map((project) => (
-            <GlassCard
+        <div>
+          {projects.map((project, i) => (
+            <a
               key={project.title}
-              className="flex flex-col p-6 lg:p-8 overflow-hidden"
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-row group grid gap-3 px-0 py-7 sm:grid-cols-[4rem_1fr_auto] sm:items-start sm:gap-6 sm:px-3"
             >
-              <div className="mb-4 h-1 w-16 rounded-full bg-gradient-to-r from-primary-container to-secondary-container" />
-              <h3 className="text-headline-md text-on-surface mb-3">
-                {project.title}
-              </h3>
-              <p className="text-on-surface-variant leading-relaxed mb-4 flex-1">
-                {project.description}
-              </p>
+              <span className="mono-label pt-1 text-accent">
+                {String(i + 1).padStart(2, "0")}
+              </span>
 
-              <ul className="space-y-2 mb-5">
-                {project.features.map((feature) => (
-                  <li
-                    key={feature}
-                    className="terminal-bullet text-sm text-on-surface-variant list-none"
-                  >
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xl font-semibold tracking-tight text-fg transition-colors group-hover:text-accent md:text-2xl">
+                    {project.title}
+                  </h3>
+                  <ArrowUpRight
+                    size={18}
+                    strokeWidth={1.75}
+                    className="text-fg-faint opacity-0 transition-opacity group-hover:opacity-100"
+                  />
+                </div>
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-fg-muted md:text-base">
+                  {project.description}
+                </p>
+                <p className="mt-3 font-mono text-xs text-fg-faint tracking-wide">
+                  {project.tags.slice(0, 5).join("  ·  ")}
+                </p>
               </div>
 
-              <div className="flex flex-wrap gap-3 mt-auto">
-                <PrimaryButton href={project.liveUrl} external>
-                  <ExternalLink size={16} strokeWidth={2} />
-                  Live demo
-                </PrimaryButton>
-                {project.sourceUrl ? (
-                  <GhostButton href={project.sourceUrl} external>
-                    <IconGithub width={16} height={16} />
-                    Source
-                  </GhostButton>
-                ) : (
-                  <span className="text-code text-outline self-center px-2">
-                    Private repository
-                  </span>
-                )}
-              </div>
-            </GlassCard>
+              <span className="mono-label hidden pt-2 sm:block">
+                {project.sourceUrl ? "Live + code" : "Live"}
+              </span>
+            </a>
           ))}
         </div>
 
-        <p className="mt-10 text-center text-on-surface-variant text-sm">
-          More open source work on{" "}
+        <p className="mt-8 text-sm text-fg-muted">
+          More on{" "}
           <a
             href={site.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-secondary hover:underline"
+            className="link-accent"
           >
             GitHub
           </a>
+          .
         </p>
       </Container>
     </section>

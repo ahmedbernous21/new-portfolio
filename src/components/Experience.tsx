@@ -1,62 +1,52 @@
 import { experience } from "@/data/content";
-import {
-  Container,
-  GlassCard,
-  SectionLabel,
-  SectionTitle,
-  Tag,
-} from "@/components/ui";
+import { Container, SectionHead } from "@/components/ui";
 
 export function Experience() {
   return (
     <section id="experience" className="py-[var(--section-gap)]">
       <Container>
-        <div className="mb-12 max-w-2xl">
-          <SectionLabel>Experience</SectionLabel>
-          <SectionTitle>Professional journey</SectionTitle>
-          <p className="mt-4 text-on-surface-variant leading-relaxed">
-            From scaling a marketplace startup to ERP platforms and freelance
-            delivery — practical full-stack work across remote teams.
-          </p>
-        </div>
+        <SectionHead
+          index="03"
+          label="Experience"
+          title="Where I've shipped"
+          description="Roles across ERP platforms, marketplaces, and freelance product work."
+        />
 
-        <div className="space-y-6">
+        <div className="space-y-10">
           {experience.map((job) => (
-            <GlassCard key={job.company} className="p-6 lg:p-8">
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between mb-4">
+            <article key={`${job.company}-${job.period}`} className="exp-item">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
                 <div>
-                  <h3 className="text-headline-md text-on-surface">
+                  <h3 className="text-lg font-semibold text-fg tracking-tight">
                     {job.company}
                   </h3>
-                  <p className="text-on-surface-variant mt-1">
-                    <span className="text-primary">{job.role}</span>
-                    <span className="mx-2 text-outline">·</span>
-                    <span className="italic">{job.type}</span>
+                  <p className="mt-0.5 text-sm text-fg-muted">
+                    {job.role}
+                    <span className="text-fg-faint"> · {job.type}</span>
                   </p>
-                  <p className="text-sm text-outline mt-1">{job.location}</p>
                 </div>
-                <p className="text-label-caps text-secondary shrink-0 sm:text-right">
+                <p className="mono-label !normal-case !tracking-normal shrink-0 sm:text-right">
                   {job.period}
                 </p>
               </div>
+              <p className="mt-1 text-xs text-fg-faint">{job.location}</p>
 
-              <ul className="space-y-2 mb-5">
+              <ul className="mt-4 space-y-2">
                 {job.highlights.map((item) => (
                   <li
                     key={item}
-                    className="terminal-bullet text-sm text-on-surface-variant leading-relaxed list-none"
+                    className="flex gap-2 text-sm leading-relaxed text-fg-muted"
                   >
-                    {item}
+                    <span className="mt-2 h-px w-2 shrink-0 bg-accent" aria-hidden />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="flex flex-wrap gap-2">
-                {job.tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </div>
-            </GlassCard>
+              <p className="mt-4 font-mono text-xs text-fg-faint tracking-wide">
+                {job.tags.join("  ·  ")}
+              </p>
+            </article>
           ))}
         </div>
       </Container>

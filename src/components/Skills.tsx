@@ -1,37 +1,27 @@
 import { skillGroups } from "@/data/content";
-import {
-  Container,
-  GlassCard,
-  SectionLabel,
-  SectionTitle,
-  Tag,
-} from "@/components/ui";
+import { Container, SectionHead } from "@/components/ui";
 
 export function Skills() {
   return (
     <section id="skills" className="py-[var(--section-gap)]">
       <Container>
-        <div className="mb-12 max-w-2xl">
-          <SectionLabel>Skills</SectionLabel>
-          <SectionTitle>Technical expertise</SectionTitle>
-          <p className="mt-4 text-on-surface-variant leading-relaxed">
-            Full-stack capabilities from UI to deployment — built across
-            startups, ERP platforms, and client projects.
-          </p>
-        </div>
+        <SectionHead
+          index="04"
+          label="Skills"
+          title="Tools I reach for"
+        />
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="divide-y divide-line border-y border-line">
           {skillGroups.map((group) => (
-            <GlassCard key={group.id} className="p-6">
-              <h3 className="text-label-caps text-secondary mb-4">
-                {group.label}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {group.skills.map((skill) => (
-                  <Tag key={skill}>{skill}</Tag>
-                ))}
-              </div>
-            </GlassCard>
+            <div
+              key={group.id}
+              className="grid gap-3 py-6 sm:grid-cols-[140px_1fr] sm:gap-8"
+            >
+              <p className="mono-label pt-1">{group.label}</p>
+              <p className="font-mono text-sm leading-7 text-fg-muted tracking-wide">
+                {group.skills.join("  ·  ")}
+              </p>
+            </div>
           ))}
         </div>
       </Container>

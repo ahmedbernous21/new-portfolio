@@ -2,78 +2,85 @@
 
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navLinks, site } from "@/data/content";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-[var(--glass-border)] bg-[rgba(5,20,36,0.75)] backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-[var(--container-max)] items-center justify-between px-5 lg:px-6">
-        <Link
-          href="#"
-          className="text-label-caps text-on-surface hover:text-secondary transition-colors"
-        >
-          {site.name.split(" ")[0]}
-          <span className="text-primary">.</span>
+    <header
+      className={`fixed top-0 z-40 w-full transition-colors duration-300 ${
+        scrolled || open
+          ? "border-b border-line bg-[rgba(7,14,24,0.92)] backdrop-blur-md"
+          : "border-b border-transparent"
+      }`}
+    >
+      <div className="container-site flex h-14 items-center justify-between md:h-16">
+        <Link href="#" className="font-mono text-sm tracking-tight text-fg">
+          {site.name.split(" ")[0].toLowerCase()}
+          <span className="text-accent">/</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-on-surface-variant hover:text-secondary transition-colors"
+              className="text-[13px] text-fg-muted transition-colors hover:text-fg"
             >
               {link.label}
             </Link>
           ))}
+          <a href={`mailto:${site.email}`} className="btn btn-solid text-[13px] !py-1.5 !px-3">
+            Email
+          </a>
         </nav>
-
-        <Link
-          href={`mailto:${site.email}`}
-          className="btn-primary hidden text-sm px-4 py-2 md:inline-flex"
-        >
-          Get in touch
-        </Link>
 
         <button
           type="button"
-          className="md:hidden text-on-surface p-2"
-          onClick={() => setOpen(!open)}
+          className="p-2 text-fg md:hidden"
+          onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
         >
-          {open ? <X size={22} strokeWidth={2} /> : <Menu size={22} strokeWidth={2} />}
+          {open ? <X size={20} strokeWidth={1.75} /> : <Menu size={20} strokeWidth={1.75} />}
         </button>
       </div>
 
-      {open && (
-        <nav className="glass border-t border-[var(--glass-border)] px-5 py-4 md:hidden">
-          <ul className="flex flex-col gap-3">
+      {open ? (
+        <nav className="border-t border-line bg-bg px-5 py-4 md:hidden">
+          <ul className="flex flex-col gap-1">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="block py-2 text-on-surface-variant hover:text-secondary"
+                  className="block py-2.5 text-fg-muted hover:text-fg"
                   onClick={() => setOpen(false)}
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
-            <li>
-              <Link
+            <li className="pt-2">
+              <a
                 href={`mailto:${site.email}`}
-                className="btn-primary mt-2 inline-flex w-full justify-center py-3 text-sm"
+                className="btn btn-solid w-full justify-center"
                 onClick={() => setOpen(false)}
               >
-                Get in touch
-              </Link>
+                Email
+              </a>
             </li>
           </ul>
         </nav>
-      )}
+      ) : null}
     </header>
   );
 }

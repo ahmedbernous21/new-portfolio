@@ -2,7 +2,7 @@ export const site = {
   name: "Ahmed Bernous",
   title: "Full Stack Software Engineer",
   tagline:
-    "Building scalable products, ERP platforms, and full-stack applications — from marketplace scale to production workflows.",
+    "I ship full-stack products — ERP platforms, marketplaces, and apps that stay up in production.",
   email: "bernousahmed51@gmail.com",
   linkedin: "https://www.linkedin.com/in/ahmed-bernous-08703025a",
   linkedinRecommendations:
@@ -12,37 +12,19 @@ export const site = {
 } as const;
 
 export const metrics = [
-  { value: "200K+", label: "Platform users scaled at Bricoram" },
-  { value: "100K+", label: "Mobile downloads (iOS & Android)" },
-  { value: "20+", label: "ERP deployments supported at Tangle" },
+  { value: "200K+", label: "Users at Bricoram" },
+  { value: "100K+", label: "App downloads" },
+  { value: "20+", label: "ERP deployments" },
 ] as const;
 
 export const about = {
-  headline: "Precision engineering for products that matter",
+  headline: "I build products that hold up in production.",
   intro:
-    "I'm a full-stack software engineer who ships end-to-end — from ERP modules and translation platforms to marketplaces and mobile apps. I care about clean architecture, fast iteration, and code that survives production.",
+    "Full-stack engineer working across ERP platforms, translation systems, marketplaces, and mobile. I care about architecture that stays maintainable and features that actually ship.",
   journey: [
-    "I began in a Computer Science program at the University of Skikda, where personal projects turned into a real craft. That path led me to Bricoram as one of three developers, mentored by Tech Lead Younes Chaoui — where we scaled a marketplace to 200K+ users and 100K+ app downloads.",
-    "At Bricoram I grew across full-stack development, DevOps, performance, and UX — aligning technology with business outcomes. After two years I moved into freelancing and contract work, owning projects from requirements through deployment.",
-    "Today I build ERP systems at Tangle Software, maintain translation workflows for international clients, and deliver full-stack solutions on Upwork — always focused on reliability, clarity, and impact.",
-  ],
-  pillars: [
-    {
-      title: "Clean Code",
-      description: "Maintainable, scalable, and efficient implementations",
-    },
-    {
-      title: "Collaborative",
-      description: "Clear communication with stakeholders and engineering teams",
-    },
-    {
-      title: "Problem Solver",
-      description: "Creative, pragmatic solutions under real constraints",
-    },
-    {
-      title: "Fast Learner",
-      description: "Quick adoption of new stacks, domains, and workflows",
-    },
+    "Started in Computer Science at the University of Skikda, then joined Bricoram as one of three developers under Younes Chaoui. We scaled a marketplace to 200K+ users and 100K+ app downloads across iOS, Android, web, and PWA.",
+    "That stretch covered full-stack, DevOps, performance, and shipping against real business pressure. After Bricoram I moved into freelance and contract work — owning projects from requirements to deployment.",
+    "Now I build ERP modules at Tangle, maintain translation workflows for international clients, and deliver full-stack apps for Upwork clients.",
   ],
 } as const;
 
@@ -280,10 +262,9 @@ export const testimonials = [
 ] as const;
 
 export const navLinks = [
-  { href: "#recommendations", label: "Recommendations" },
+  { href: "#recommendations", label: "Recs" },
   { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
+  { href: "#work", label: "Work" },
   { href: "#contact", label: "Contact" },
 ] as const;
