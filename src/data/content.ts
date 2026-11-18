@@ -9,6 +9,7 @@ export const site = {
     "https://www.linkedin.com/in/ahmed-bernous-08703025a/details/recommendations/",
   github: "https://github.com/ahmedbernous21",
   url: "https://ahmedbernous.tech",
+  cv: "/Ahmed_Bernous_CV.pdf",
 } as const;
 
 export const metrics = [

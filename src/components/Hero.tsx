@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import { metrics, site } from "@/data/content";
 import { Button, Container } from "@/components/ui";
 import { IconGithub, IconLinkedin } from "@/components/icons";
@@ -34,6 +34,10 @@ export function Hero() {
           <Button href="#recommendations" variant="line">
             Recommendations
           </Button>
+          <a href={site.cv} download className="btn btn-line">
+            <Download size={15} strokeWidth={1.75} aria-hidden />
+            Download CV
+          </a>
           <div className="ml-1 flex items-center gap-4 pl-1">
             <a
               href={site.github}

@@ -40,6 +40,13 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+          <a
+            href={site.cv}
+            download
+            className="text-[13px] text-fg-muted transition-colors hover:text-fg"
+          >
+            CV
+          </a>
           <a href={`mailto:${site.email}`} className="btn btn-solid text-[13px] !py-1.5 !px-3">
             Email
           </a>
@@ -69,6 +76,16 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              <a
+                href={site.cv}
+                download
+                className="block py-2.5 text-fg-muted hover:text-fg"
+                onClick={() => setOpen(false)}
+              >
+                Download CV
+              </a>
+            </li>
             <li className="pt-2">
               <a
                 href={`mailto:${site.email}`}

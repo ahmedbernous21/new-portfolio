@@ -1,3 +1,4 @@
+import { Download } from "lucide-react";
 import { site } from "@/data/content";
 import { Button, Container, SectionHead } from "@/components/ui";
 import { IconGithub, IconLinkedin } from "@/components/icons";
@@ -26,6 +27,10 @@ export function Contact() {
               <IconGithub width={15} height={15} />
               GitHub
             </Button>
+            <a href={site.cv} download className="btn btn-line">
+              <Download size={15} strokeWidth={1.75} aria-hidden />
+              Download CV
+            </a>
           </div>
         </div>
       </Container>
