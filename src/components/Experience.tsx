@@ -6,10 +6,10 @@ export function Experience() {
     <section id="experience" className="py-[var(--section-gap)]">
       <Container>
         <SectionHead
-          index="03"
+          index="04"
           label="Experience"
           title="Where I've shipped"
-          description="Roles across ERP platforms, marketplaces, and freelance product work."
+          description="Roles across ERP platforms, business workflow systems, marketplaces, and contract product work."
         />
 
         <div className="space-y-10">

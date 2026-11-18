@@ -8,7 +8,7 @@ export function About() {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <SectionHead
-              index="02"
+              index="03"
               label="About"
               title={about.headline}
             />

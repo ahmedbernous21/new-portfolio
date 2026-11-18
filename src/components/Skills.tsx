@@ -6,7 +6,7 @@ export function Skills() {
     <section id="skills" className="py-[var(--section-gap)]">
       <Container>
         <SectionHead
-          index="04"
+          index="05"
           label="Skills"
           title="Tools I reach for"
         />

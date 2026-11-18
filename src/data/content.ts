@@ -20,11 +20,11 @@ export const metrics = [
 export const about = {
   headline: "I build products that hold up in production.",
   intro:
-    "Full-stack engineer working across ERP platforms, translation systems, marketplaces, and mobile. I care about architecture that stays maintainable and features that actually ship.",
+    "Full-stack engineer working across ERP platforms, business workflows, marketplaces and mobile. I take features from a business requirement to production, and I own the product end to end when it's mine.",
   journey: [
     "Started in Computer Science at the University of Skikda, then joined Bricoram as one of three developers under Younes Chaoui. We scaled a marketplace to 200K+ users and 100K+ app downloads across iOS, Android, web, and PWA.",
     "That stretch covered full-stack, DevOps, performance, and shipping against real business pressure. After Bricoram I moved into freelance and contract work — owning projects from requirements to deployment.",
-    "Now I build ERP modules at Tangle, maintain translation workflows for international clients, and deliver full-stack apps for Upwork clients.",
+    "Today I build ERP modules at Tangle, turning client processes into workflows, dashboards and integrations that run in production. Alongside that I'm building Nadhim, my own management ERP for kindergartens and private schools in Algeria, and I publish open-source tools like Islamic Feed Eradicator.",
   ],
 } as const;
 
@@ -126,6 +126,7 @@ export const skillGroups = [
       "Expo",
       "TypeScript",
       "Tailwind CSS",
+      "Chrome Extensions",
     ],
   },
   {
@@ -158,64 +159,204 @@ export const skillGroups = [
   },
 ] as const;
 
-export const projects = [
+export type ProjectLink = { label: string; href: string };
+
+export type CaseStudy = {
+  problem: string;
+  built: readonly string[];
+  decisions?: readonly string[];
+  outcome?: string;
+};
+
+export type FeaturedProject = {
+  id: string;
+  title: string;
+  kind: string;
+  status: string;
+  summary: string;
+  role: string;
+  scope: readonly string[];
+  stack?: readonly string[];
+  mark: { type: "image"; src: string; alt: string } | { type: "text"; text: string };
+  links: readonly ProjectLink[];
+  note?: string;
+  caseStudy?: CaseStudy;
+};
+
+export const featuredProjects: readonly FeaturedProject[] = [
+  {
+    id: "nadhim",
+    title: "Nadhim",
+    kind: "Kindergarten & school management ERP",
+    status: "My product · In active development",
+    summary:
+      "A web ERP for kindergartens, crèches and private schools in Algeria. It replaces the paper registers and Excel files most schools still run on with one tool for enrolment, attendance, fees, staff and parent communication, in Arabic and French.",
+    role: "Founder & engineer — product, architecture and build",
+    scope: [
+      "Students & parents",
+      "Attendance",
+      "Fees, invoices & cash book",
+      "Dashboards & statistics",
+      "Document & invoice printing",
+      "WhatsApp reminders",
+      "Customisable workspace",
+    ],
+    stack: ["Django", "DRF", "Angular", "PostgreSQL", "Cypress"],
+    mark: { type: "image", src: "/projects/nadhim.jpg", alt: "Nadhim logo" },
+    links: [{ label: "nadhim.org", href: "https://nadhim.org" }],
+    caseStudy: {
+      problem:
+        "Most kindergartens and small private schools in Algeria are run from notebooks and spreadsheets. Fees get chased by hand, invoices need local tax identifiers, and directors have no clear view of attendance or cash flow. Generic ERPs don't speak Arabic well and don't fit how these schools work.",
+      built: [
+        "Records for children, parents, classes and staff, with Excel import and export.",
+        "Daily attendance, fee tracking, invoices and receipts with continuous numbering, and a cash book.",
+        "Dashboards and monthly statistics for directors.",
+        "Customisable print templates for documents and invoices.",
+        "Parent messaging with templates and a WhatsApp send queue for reminders.",
+        "A Studio where each school adds fields, lists and hides modules without code.",
+      ],
+      decisions: [
+        "Built as a metadata-driven ERP builder: the kindergarten module set is an installable pack, not hard-coded screens, so other school types reuse the same engine.",
+        "Arabic-first with full right-to-left support, French second, with language chosen per user.",
+        "Browser-based, so schools don't install anything. Core flows are covered by Cypress end-to-end tests in CI.",
+      ],
+    },
+  },
+  {
+    id: "islamic-feed-eradicator",
+    title: "Islamic Feed Eradicator",
+    kind: "Open-source Chrome extension",
+    status: "Open source · MIT",
+    summary:
+      "Replaces the feed on YouTube, Facebook, LinkedIn and Instagram with a Qur’an verse, hadith or scholar reminder. Search, messages and playback keep working, so the site stays useful without the endless scroll.",
+    role: "Sole author — design, extension engineering and release",
+    scope: [
+      "Feed replacement on 4 sites",
+      "Bundled, sourced reminders",
+      "No network calls while browsing",
+    ],
+    stack: ["TypeScript", "React", "Manifest V3", "Vite", "Vitest"],
+    mark: {
+      type: "image",
+      src: "/projects/islamic-feed-eradicator.svg",
+      alt: "Islamic Feed Eradicator logo",
+    },
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/ahmedbernous21/islamic-feed-eradicator",
+      },
+    ],
+    caseStudy: {
+      problem:
+        "I wanted to break my own habit of opening a social app and scrolling without thinking. Blocking sites outright breaks the parts you actually need, like search and messages.",
+      built: [
+        "Content scripts that find and replace only the feed on each site, leaving navigation, search, messaging and playback intact.",
+        "A reminder card with Arabic text and a short English rendering, plus settings and a toolbar badge.",
+        "A build step that pulls Qur’an text from the Quran.com API and Arabic hadith from Sahih al-Bukhari and Sahih Muslim into a bundled library.",
+      ],
+      decisions: [
+        "Reminders ship inside the extension, so nothing is fetched while you browse and no browsing data leaves the device.",
+        "Minimal Chrome permissions (storage, alarms, scripting, activeTab).",
+        "Suggestions and reports open a public GitHub issue, so the extension holds no tokens.",
+      ],
+    },
+  },
+  {
+    id: "bricoram",
+    title: "Bricoram",
+    kind: "Home-services marketplace",
+    status: "Production · 2023 – 2025",
+    summary:
+      "A marketplace connecting clients with artisans and service providers across web, PWA, iOS and Android. I was one of three developers on the team that grew it to 200K+ users and 100K+ app downloads.",
+    role: "Full-stack engineer — one of three developers",
+    scope: [
+      "Accounts & profiles",
+      "Messaging",
+      "Project posting",
+      "Order tracking",
+      "Performance & caching",
+      "App Store releases",
+    ],
+    stack: ["Angular", "Django", "Docker", "GitLab CI/CD", "AWS", "Cypress", "Pytest"],
+    mark: { type: "text", text: "BR" },
+    links: [{ label: "bricoram.com", href: "https://bricoram.com/" }],
+    caseStudy: {
+      problem:
+        "Clients needed a reliable way to find and hire tradespeople, and providers needed a steady flow of jobs, on whatever device they had.",
+      built: [
+        "Core marketplace flows: accounts, messaging, project posting and order tracking.",
+        "Web, PWA and mobile clients on one Django API, including iOS App Store publication.",
+        "Database optimisation and caching as traffic grew.",
+        "CI/CD on GitLab with Cypress and Pytest, plus monitoring after each release.",
+      ],
+      outcome:
+        "The platform reached 200K+ users and 100K+ app downloads while a three-person team kept it running.",
+    },
+  },
+  {
+    id: "mlc-tms",
+    title: "My Language Connection — TMS",
+    kind: "Translation management system",
+    status: "Client work · 2025 – 2026",
+    summary:
+      "Maintained and extended the translation management system a UK language-services company runs on every day. Project managers and clients rely on it daily, so changes had to land without disrupting live work.",
+    role: "Software developer — features, integrations, automation and support",
+    scope: [
+      "Feature work from business requirements",
+      "Zoho CRM automation & notifications",
+      "Client & third-party integrations",
+      "Production debugging",
+      "User support",
+    ],
+    stack: ["Tangle", "Vue.js", "Zoho CRM", "SQL"],
+    mark: { type: "text", text: "TMS" },
+    links: [],
+  },
+  {
+    id: "erp-production",
+    title: "ERP systems in production",
+    kind: "Business workflow platform · Tangle Software",
+    status: "Current role · 2025 – Present",
+    summary:
+      "I build and maintain ERP modules on a workflow platform used for ERP builds at 20+ companies. The work starts from how a client actually operates and ends with a feature their team uses daily. Client details are kept private.",
+    role: "Software engineer — module development, integrations and production support",
+    scope: [
+      "Supplier dashboards & scorecards",
+      "Purchasing & procurement workflows",
+      "Ticketing & notifications",
+      "Reporting & business metrics",
+      "Workflow automation",
+      "Integrations",
+      "Production fixes",
+    ],
+    mark: { type: "text", text: "ERP" },
+    links: [],
+    note: "Anonymised — no client names, data or screenshots.",
+  },
+];
+
+export const moreProjects = [
   {
     title: "SaaS Boiler CLI",
     description:
-      "A flexible SaaS boilerplate generator for scaffolding full-stack apps with your choice of frontend, backend, and database.",
-    tags: [
-      "Next.js",
-      "Angular",
-      "Nuxt",
-      "Express",
-      "Go Fiber",
-      "Django",
-      "MySQL",
-      "MongoDB",
-    ],
-    features: [
-      "Frontend: Next.js, Angular, or Nuxt",
-      "Backend: Gin (Go), Django, or Express",
-      "Databases: MySQL, Postgres, MongoDB, Supabase",
-    ],
-    liveUrl: "https://saas-boiler-cli-web.vercel.app/",
-    sourceUrl: "https://github.com/ahmedbernous21/saas-boiler-cli",
+      "CLI that scaffolds full-stack apps from a choice of frontend, backend and database.",
+    tags: ["Next.js", "Angular", "Nuxt", "Express", "Go", "Django"],
+    href: null,
   },
   {
     title: "Joker Graphics Agency",
     description:
-      "Interactive agency site with in-browser design customization and order workflows.",
-    tags: ["Next.js", "Shadcn", "Fabric.js", "Django", "OpenAI"],
-    features: [
-      "Real-time canvas editor with drag-and-drop customization",
-      "Django backend for projects, orders, and user sessions",
-    ],
-    liveUrl: "https://jokergraphics.com/",
-    sourceUrl: null,
+      "Agency site with an in-browser canvas editor for customising designs and placing orders.",
+    tags: ["Next.js", "Fabric.js", "Django", "OpenAI"],
+    href: "https://github.com/ahmedbernous21/joker_front",
   },
   {
     title: "MoneyPool",
     description:
-      "Group fundraising platform for shared money pools, events, and contribution goals.",
-    tags: ["Angular", "Django", "Stripe", "Heroku", "WebSockets"],
-    features: [
-      "Real-time tracking via Django Channels and WebSockets",
-      "Invite system, contribution logic, and goal tracking",
-    ],
-    liveUrl: "https://moneypool-front-880b35135b09.herokuapp.com/",
-    sourceUrl: null,
-  },
-  {
-    title: "Bricoram",
-    description:
-      "Marketplace connecting artisans and clients for home services — web, PWA, and mobile.",
-    tags: ["Angular", "Django", "Docker", "Cypress", "Pytest"],
-    features: [
-      "Responsive UI and API integrations at scale",
-      "iOS App Store publication and production monitoring",
-    ],
-    liveUrl: "https://bricoram.com/",
-    sourceUrl: null,
+      "Group fundraising with shared pools, invites and live contribution tracking.",
+    tags: ["Angular", "Django", "Stripe", "WebSockets"],
+    href: null,
   },
 ] as const;
 
@@ -263,8 +404,8 @@ export const testimonials = [
 
 export const navLinks = [
   { href: "#recommendations", label: "Recs" },
+  { href: "#work", label: "Work" },
   { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
-  { href: "#work", label: "Work" },
   { href: "#contact", label: "Contact" },
 ] as const;
